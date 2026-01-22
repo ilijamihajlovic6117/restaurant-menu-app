@@ -33,10 +33,7 @@
     {
       "id": 1,
       "name": "Cezar salata",
-      "description": "Piletina, parmezan",
-      "price": 690,
-      "imageUrl": "",
-      "available": true,
+      "price": 590,
       "categoryId": 1
     }
   ]

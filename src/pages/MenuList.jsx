@@ -33,12 +33,17 @@ export default function MenuList() {
           {items.map((x) => (
             <li key={x.id}>
               <b>{x.name}</b> — {x.price} RSD  
+
               <button
                 onClick={() => handleDelete(x.id)}
                 style={{ marginLeft: 10 }}
               >
                 Obriši
               </button>
+
+              <Link to={`/izmeni/${x.id}`} style={{ marginLeft: 10 }}>
+                Izmeni
+              </Link>
             </li>
           ))}
         </ul>
