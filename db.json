@@ -1,14 +1,43 @@
 {
   "users": [
-    { "id": 1, "name": "Admin", "email": "admin@restoran.com", "password": "admin123", "role": "admin" },
-    { "id": 2, "name": "User", "email": "user@restoran.com", "password": "user123", "role": "user" }
+    {
+      "id": 1,
+      "name": "Admin",
+      "email": "admin@restoran.com",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "name": "User",
+      "email": "user@restoran.com",
+      "password": "user123",
+      "role": "user"
+    }
   ],
   "categories": [
-    { "id": 1, "name": "Predjela" },
-    { "id": 2, "name": "Glavna jela" },
-    { "id": 3, "name": "Pića" }
+    {
+      "id": 1,
+      "name": "Predjela"
+    },
+    {
+      "id": 2,
+      "name": "Glavna jela"
+    },
+    {
+      "id": 3,
+      "name": "Pića"
+    }
   ],
   "items": [
-    { "id": 1, "name": "Cezar salata", "description": "Piletina, parmezan", "price": 690, "imageUrl": "", "available": true, "categoryId": 1 }
+    {
+      "id": 1,
+      "name": "Cezar salata",
+      "description": "Piletina, parmezan",
+      "price": 690,
+      "imageUrl": "",
+      "available": true,
+      "categoryId": 1
+    }
   ]
 }
