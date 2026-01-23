@@ -1,18 +1,95 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+
+import ProtectedRoute from "./routes/ProtectedRoute";
+import AdminRoute from "./routes/AdminRoute";
+
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import MenuList from "./pages/MenuList";
 import AddItem from "./pages/AddItem";
 import EditItem from "./pages/EditItem";
+import AdminPanel from "./pages/AdminPanel";
 
+function Nav() {
+  const { user, logout } = useAuth();
+  const isAdmin = user?.role === "admin";
+
+  return (
+    <div style={{ padding: 10, borderBottom: "1px solid #ddd" }}>
+      <Link to="/" style={{ marginRight: 10 }}>Jelovnik</Link>
+
+      {!user ? (
+        <>
+          <Link to="/login" style={{ marginRight: 10 }}>Login</Link>
+          <Link to="/register">Register</Link>
+        </>
+      ) : (
+        <>
+          {isAdmin && (
+            <Link to="/admin" style={{ marginRight: 10 }}>Admin</Link>
+          )}
+
+          <span style={{ marginRight: 10 }}>
+            Ulogovan: <b>{user.name}</b> ({user.role})
+          </span>
+
+          <button onClick={logout}>Logout</button>
+        </>
+      )}
+    </div>
+  );
+}
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MenuList />} />
-        <Route path="/dodaj" element={<AddItem />} />
-        <Route path="/izmeni/:id" element={<EditItem />} />
+    <AuthProvider>
+      <BrowserRouter>
+        <Nav />
 
-      </Routes>
-    </BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <MenuList />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+
+          <Route
+            path="/dodaj"
+            element={
+              <AdminRoute>
+                <AddItem />
+              </AdminRoute>
+            }
+          />
+
+          <Route
+            path="/izmeni/:id"
+            element={
+              <AdminRoute>
+                <EditItem />
+              </AdminRoute>
+            }
+          />
+
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminPanel />
+              </AdminRoute>
+            }
+          />
+
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
