@@ -34,7 +34,9 @@
       "id": 1,
       "name": "Cezar salata",
       "price": 590,
-      "categoryId": 1
+      "categoryId": 1,
+      "description": "Klasična cezar salata sa piletinom, parmezanom i dresingom."
     }
-  ]
+  ],
+  "favorites": []
 }

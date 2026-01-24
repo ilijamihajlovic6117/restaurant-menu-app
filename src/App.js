@@ -10,6 +10,8 @@ import MenuList from "./pages/MenuList";
 import AddItem from "./pages/AddItem";
 import EditItem from "./pages/EditItem";
 import AdminPanel from "./pages/AdminPanel";
+import ItemDetails from "./pages/ItemDetails";
+
 
 function Nav() {
   const { user, logout } = useAuth();
@@ -61,6 +63,15 @@ export default function App() {
           <Route path="/register" element={<RegisterPage />} />
 
           <Route
+            path="/item/:id"
+            element={
+              <ProtectedRoute>
+                <ItemDetails />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
             path="/dodaj"
             element={
               <AdminRoute>
@@ -89,6 +100,7 @@ export default function App() {
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+
       </BrowserRouter>
     </AuthProvider>
   );

@@ -9,19 +9,21 @@ export default function EditItem() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [categoryId, setCategoryId] = useState("");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     api.get(`/items/${id}`).then((res) => {
       setName(res.data.name || "");
       setPrice(res.data.price ?? "");
       setCategoryId(res.data.categoryId ?? "");
+      setDescription(res.data.description || "");
     });
   }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name.trim() || !price || !categoryId) {
+    if (!name.trim() || !price || !categoryId || !description.trim()) {
       alert("Popuni sva polja.");
       return;
     }
@@ -31,6 +33,7 @@ export default function EditItem() {
       name: name.trim(),
       price: Number(price),
       categoryId: Number(categoryId),
+      description: description.trim(),
     });
 
     navigate("/");
@@ -40,7 +43,10 @@ export default function EditItem() {
     <div style={{ padding: 24 }}>
       <h1>Izmeni jelo</h1>
 
-      <form onSubmit={handleSubmit} style={{ display: "grid", gap: 12, maxWidth: 360 }}>
+      <form
+        onSubmit={handleSubmit}
+        style={{ display: "grid", gap: 12, maxWidth: 360 }}
+      >
         <input
           placeholder="Naziv jela"
           value={name}
@@ -59,6 +65,13 @@ export default function EditItem() {
           type="number"
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
+        />
+
+        <textarea
+          placeholder="Kratak opis jela"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          rows={4}
         />
 
         <button type="submit">Sačuvaj izmene</button>

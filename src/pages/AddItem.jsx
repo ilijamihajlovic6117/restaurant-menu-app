@@ -6,13 +6,14 @@ export default function AddItem() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [categoryId, setCategoryId] = useState("");
+  const [description, setDescription] = useState("");
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name.trim() || !price || !categoryId) {
+    if (!name.trim() || !price || !categoryId || !description.trim()) {
       alert("Popuni sva polja.");
       return;
     }
@@ -21,6 +22,7 @@ export default function AddItem() {
       name: name.trim(),
       price: Number(price),
       categoryId: Number(categoryId),
+      description: description.trim(),
     });
 
     navigate("/");
@@ -30,7 +32,10 @@ export default function AddItem() {
     <div style={{ padding: 24 }}>
       <h1>Dodaj jelo</h1>
 
-      <form onSubmit={handleSubmit} style={{ display: "grid", gap: 12, maxWidth: 360 }}>
+      <form
+        onSubmit={handleSubmit}
+        style={{ display: "grid", gap: 12, maxWidth: 360 }}
+      >
         <input
           placeholder="Naziv jela"
           value={name}
@@ -49,6 +54,13 @@ export default function AddItem() {
           type="number"
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
+        />
+
+        <textarea
+          placeholder="Kratak opis jela"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          rows={4}
         />
 
         <button type="submit">Sačuvaj</button>

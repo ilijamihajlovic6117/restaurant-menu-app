@@ -42,7 +42,11 @@ export default function MenuList() {
         <ul>
           {items.map((x) => (
             <li key={x.id} style={{ marginBottom: 6 }}>
-              <b>{x.name}</b> — {x.price} RSD
+              {/* 👇 BITNA IZMENA: link ka detaljima */}
+              <Link to={`/item/${x.id}`}>
+                <b>{x.name}</b>
+              </Link>{" "}
+              — {x.price} RSD
 
               {isAdmin && (
                 <>
