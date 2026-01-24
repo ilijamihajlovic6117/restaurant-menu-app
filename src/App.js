@@ -12,6 +12,9 @@ import EditItem from "./pages/EditItem";
 import AdminPanel from "./pages/AdminPanel";
 import ItemDetails from "./pages/ItemDetails";
 
+// ✅ NOVO
+import FavoritesPage from "./pages/FavoritesPage";
+import EurToRsdPage from "./pages/EurToRsdPage";
 
 function Nav() {
   const { user, logout } = useAuth();
@@ -28,6 +31,10 @@ function Nav() {
         </>
       ) : (
         <>
+          {/* ✅ NOVO */}
+          <Link to="/favorites" style={{ marginRight: 10 }}>Omiljena</Link>
+          <Link to="/kurs" style={{ marginRight: 10 }}>EUR→RSD</Link>
+
           {isAdmin && (
             <Link to="/admin" style={{ marginRight: 10 }}>Admin</Link>
           )}
@@ -71,6 +78,26 @@ export default function App() {
             }
           />
 
+          
+          <Route
+            path="/favorites"
+            element={
+              <ProtectedRoute>
+                <FavoritesPage />
+              </ProtectedRoute>
+            }
+          />
+
+          
+          <Route
+            path="/kurs"
+            element={
+              <ProtectedRoute>
+                <EurToRsdPage />
+              </ProtectedRoute>
+            }
+          />
+
           <Route
             path="/dodaj"
             element={
@@ -100,7 +127,6 @@ export default function App() {
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-
       </BrowserRouter>
     </AuthProvider>
   );
