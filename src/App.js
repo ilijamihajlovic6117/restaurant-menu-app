@@ -1,3 +1,6 @@
+
+import "./App.css";
+
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 
@@ -21,47 +24,57 @@ function Nav() {
   const isAdmin = user?.role === "admin";
 
   return (
-    <div style={{ padding: 10, borderBottom: "1px solid #ddd" }}>
-      <Link to="/home" style={{ marginRight: 10 }}>
-        Home
-      </Link>
+    <div className="nav">
+      <div className="nav-inner">
+        <div className="nav-left">
+          <Link to="/home" className="btn">
+            Home
+          </Link>
 
-      {user && (
-        <>
-          <Link to="/" style={{ marginRight: 10 }}>
-            Jelovnik
-          </Link>
-          <Link to="/favorites" style={{ marginRight: 10 }}>
-            Omiljena
-          </Link>
-          <Link to="/kurs" style={{ marginRight: 10 }}>
-            Kurs EUR→RSD
-          </Link>
-        </>
-      )}
-
-      {!user ? (
-        <>
-          <Link to="/login" style={{ marginRight: 10 }}>
-            Login
-          </Link>
-          <Link to="/register">Register</Link>
-        </>
-      ) : (
-        <>
-          {isAdmin && (
-            <Link to="/admin" style={{ marginRight: 10 }}>
-              Admin
-            </Link>
+          {user && (
+            <>
+              <Link to="/" className="btn">
+                Jelovnik
+              </Link>
+              <Link to="/favorites" className="btn">
+                Omiljena
+              </Link>
+              <Link to="/kurs" className="btn">
+                Kurs EUR→RSD
+              </Link>
+            </>
           )}
+        </div>
 
-          <span style={{ marginRight: 10 }}>
-            Ulogovan: <b>{user.name}</b> ({user.role})
-          </span>
+        <div className="nav-right">
+          {!user ? (
+            <>
+              <Link to="/login" className="btn">
+                Login
+              </Link>
+              <Link to="/register" className="btn btn-primary">
+                Register
+              </Link>
+            </>
+          ) : (
+            <>
+              {isAdmin && (
+                <Link to="/admin" className="btn">
+                  Admin
+                </Link>
+              )}
 
-          <button onClick={logout}>Logout</button>
-        </>
-      )}
+              <span className="badge">
+                Ulogovan: <b>{user.name}</b> ({user.role})
+              </span>
+
+              <button className="btn btn-danger" onClick={logout}>
+                Logout
+              </button>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
@@ -73,10 +86,8 @@ export default function App() {
         <Nav />
 
         <Routes>
-          
+         
           <Route path="/home" element={<HomePage />} />
-
-          
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
 
@@ -117,7 +128,7 @@ export default function App() {
             }
           />
 
-          {/* ADMIN ONLY */}
+         
           <Route
             path="/dodaj"
             element={
@@ -145,7 +156,7 @@ export default function App() {
             }
           />
 
-          {/* FALLBACK */}
+        
           <Route path="*" element={<Navigate to="/home" replace />} />
         </Routes>
       </BrowserRouter>

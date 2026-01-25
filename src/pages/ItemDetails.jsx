@@ -19,6 +19,8 @@ export default function ItemDetails() {
         `/favorites?userId=${user.id}&itemId=${Number(id)}`
       );
       setFavoriteId(favRes.data.length ? favRes.data[0].id : null);
+    } else {
+      setFavoriteId(null);
     }
   };
 
@@ -41,24 +43,54 @@ export default function ItemDetails() {
     }
   };
 
-  if (!item) return <p style={{ padding: 20 }}>Učitavanje...</p>;
+  if (!item) return <div className="page page-center">Učitavanje...</div>;
 
   return (
-    <div style={{ padding: 20 }}>
-      <Link to="/">← Nazad</Link>
+    <div className="page page-center">
+      <div className="container">
+        <div className="card">
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 12,
+              flexWrap: "wrap",
+            }}
+          >
+            <Link className="btn" to="/">
+              ← Nazad
+            </Link>
 
-      <h1>{item.name}</h1>
-      <p><b>Cena:</b> {item.price} RSD</p>
+            <div className="badge">
+              Cena: <b>{item.price} RSD</b>
+            </div>
+          </div>
 
-      <p>
-        <b>Opis:</b> {item.description ? item.description : "Nema opisa."}
-      </p>
+          <div className="mt-16">
+            <h1 style={{ marginBottom: 6 }}>{item.name}</h1>
+            <p className="muted" style={{ marginTop: 0 }}>
+              {item.description ? item.description : "Nema opisa."}
+            </p>
+          </div>
 
-      <button onClick={toggleFavorite} disabled={!user}>
-        {favoriteId ? "Ukloni iz omiljenih" : "Dodaj u omiljene"}
-      </button>
+          <div className="mt-16" style={{ display: "grid", gap: 10 }}>
+            <button
+              className={`btn ${favoriteId ? "btn-danger" : "btn-primary"}`}
+              onClick={toggleFavorite}
+              disabled={!user}
+            >
+              {favoriteId ? "Ukloni iz omiljenih" : "Dodaj u omiljene"}
+            </button>
 
-      {!user && <p>Uloguj se da koristiš omiljene.</p>}
+            {!user && (
+              <p className="muted" style={{ margin: 0 }}>
+                Uloguj se da koristiš omiljene.
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

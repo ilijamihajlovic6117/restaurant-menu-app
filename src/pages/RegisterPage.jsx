@@ -37,33 +37,46 @@ export default function RegisterPage() {
   };
 
   return (
-    <div style={{ padding: 24 }}>
-      <h1>Registracija</h1>
+    <div className="page page-center">
+      <div className="container">
+        <div className="card center">
+          <h1>Registracija</h1>
+          <p className="muted">Napravi nalog za omiljena jela i pregled detalja.</p>
 
-      <form onSubmit={handleSubmit} style={{ display: "grid", gap: 12, maxWidth: 360 }}>
-        <input
-          placeholder="Ime"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          placeholder="Email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          placeholder="Lozinka"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Napravi nalog</button>
-      </form>
+          <form onSubmit={handleSubmit} className="form mt-16" style={{ marginInline: "auto" }}>
+            <input
+              className="input"
+              placeholder="Ime"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
 
-      <p style={{ marginTop: 12 }}>
-        Imaš nalog? <Link to="/login">Prijavi se</Link>
-      </p>
+            <input
+              className="input"
+              placeholder="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <input
+              className="input"
+              placeholder="Lozinka (min 4)"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <button className="btn btn-primary" type="submit">
+              Napravi nalog
+            </button>
+          </form>
+
+          <p className="muted mt-16" style={{ marginBottom: 0 }}>
+            Imaš nalog? <Link to="/login">Prijavi se</Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

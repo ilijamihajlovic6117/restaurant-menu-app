@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { api } from "../services/api";
 
 export default function EditItem() {
@@ -40,42 +40,68 @@ export default function EditItem() {
   };
 
   return (
-    <div style={{ padding: 24 }}>
-      <h1>Izmeni jelo</h1>
+    <div className="page page-center">
+      <div className="container">
+        <div className="card">
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "space-between",
+              gap: 12,
+              flexWrap: "wrap",
+            }}
+          >
+            <div>
+              <h1>Izmeni jelo</h1>
+              <p className="muted" style={{ marginTop: 6 }}>
+                Promeni podatke i sačuvaj izmene.
+              </p>
+            </div>
 
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "grid", gap: 12, maxWidth: 360 }}
-      >
-        <input
-          placeholder="Naziv jela"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+            <Link className="btn" to="/">
+              ← Nazad
+            </Link>
+          </div>
 
-        <input
-          placeholder="Cena (RSD)"
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
+          <form onSubmit={handleSubmit} className="form mt-16">
+            <input
+              className="input"
+              placeholder="Naziv jela"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
 
-        <input
-          placeholder="Kategorija ID"
-          type="number"
-          value={categoryId}
-          onChange={(e) => setCategoryId(e.target.value)}
-        />
+            <input
+              className="input"
+              placeholder="Cena (RSD)"
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
 
-        <textarea
-          placeholder="Kratak opis jela"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          rows={4}
-        />
+            <input
+              className="input"
+              placeholder="Kategorija ID"
+              type="number"
+              value={categoryId}
+              onChange={(e) => setCategoryId(e.target.value)}
+            />
 
-        <button type="submit">Sačuvaj izmene</button>
-      </form>
+            <textarea
+              className="textarea"
+              placeholder="Kratak opis jela"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={4}
+            />
+
+            <button className="btn btn-primary" type="submit">
+              Sačuvaj izmene
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

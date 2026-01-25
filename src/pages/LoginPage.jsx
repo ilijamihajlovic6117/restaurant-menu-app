@@ -18,7 +18,9 @@ export default function LoginPage() {
     }
 
     const res = await api.get(
-      `/users?email=${encodeURIComponent(email.trim())}&password=${encodeURIComponent(password)}`
+      `/users?email=${encodeURIComponent(email.trim())}&password=${encodeURIComponent(
+        password
+      )}`
     );
 
     if (res.data.length === 0) {
@@ -33,27 +35,38 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ padding: 24 }}>
-      <h1>Login</h1>
+    <div className="page page-center">
+      <div className="container">
+        <div className="card center">
+          <h1>Login</h1>
+          <p className="muted">Prijavi se da bi koristio jelovnik i omiljena jela.</p>
 
-      <form onSubmit={handleSubmit} style={{ display: "grid", gap: 12, maxWidth: 360 }}>
-        <input
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          placeholder="Lozinka"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Prijavi se</button>
-      </form>
+          <form onSubmit={handleSubmit} className="form mt-16" style={{ marginInline: "auto" }}>
+            <input
+              className="input"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-      <p style={{ marginTop: 12 }}>
-        Nemaš nalog? <Link to="/register">Registruj se</Link>
-      </p>
+            <input
+              className="input"
+              placeholder="Lozinka"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <button className="btn btn-primary" type="submit">
+              Prijavi se
+            </button>
+          </form>
+
+          <p className="muted mt-16" style={{ marginBottom: 0 }}>
+            Nemaš nalog? <Link to="/register">Registruj se</Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

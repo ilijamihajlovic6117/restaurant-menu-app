@@ -24,7 +24,6 @@ export default function FavoritesPage() {
       favs.map((f) => api.get(`/items/${f.itemId}`).then((r) => r.data))
     );
 
-
     const merged = items.map((it) => {
       const f = favs.find((x) => x.itemId === it.id);
       return { ...it, favoriteId: f.id };
@@ -36,7 +35,7 @@ export default function FavoritesPage() {
 
   useEffect(() => {
     loadFavorites();
-   
+    
   }, []);
 
   const removeFavorite = async (favoriteId) => {
@@ -44,33 +43,77 @@ export default function FavoritesPage() {
     loadFavorites();
   };
 
-  if (loading) return <div style={{ padding: 20 }}>Učitavanje...</div>;
+  if (loading) {
+    return (
+      <div className="page page-center">
+        <div className="container">
+          <div className="card center">
+            <h1>Omiljena jela</h1>
+            <p className="muted">Učitavanje...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>Omiljena jela</h1>
-      <Link to="/">← Nazad na jelovnik</Link>
+    <div className="page">
+      <div className="container">
+        <div className="card">
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "space-between",
+              gap: 12,
+              flexWrap: "wrap",
+            }}
+          >
+            <div>
+              <h1>Omiljena jela</h1>
+              <p className="muted" style={{ marginTop: 6 }}>
+                {favItems.length
+                  ? `Ukupno: ${favItems.length}`
+                  : "Nemaš sačuvana omiljena jela."}
+              </p>
+            </div>
 
-      {favItems.length === 0 ? (
-        <p style={{ marginTop: 12 }}>Nema omiljenih jela.</p>
-      ) : (
-        <ul style={{ marginTop: 12 }}>
-          {favItems.map((x) => (
-            <li key={x.id} style={{ marginBottom: 8 }}>
-              <Link to={`/item/${x.id}`}>
-                <b>{x.name}</b>
-              </Link>{" "}
-              — {x.price} RSD
-              <button
-                onClick={() => removeFavorite(x.favoriteId)}
-                style={{ marginLeft: 10 }}
-              >
-                Ukloni
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+            <Link className="btn" to="/">
+              ← Nazad na jelovnik
+            </Link>
+          </div>
+
+          {favItems.length === 0 ? (
+            <div className="card mt-16 center" style={{ padding: 16 }}>
+              <p className="muted" style={{ margin: 0 }}>
+                Nema omiljenih jela.
+              </p>
+            </div>
+          ) : (
+            <ul className="list mt-16">
+              {favItems.map((x) => (
+                <li key={x.id} className="list-item">
+                  <div style={{ display: "grid", gap: 4 }}>
+                    <Link to={`/item/${x.id}`}>
+                      <b>{x.name}</b>
+                    </Link>
+                    <span className="muted">
+                      Cena: <b>{x.price} RSD</b>
+                    </span>
+                  </div>
+
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => removeFavorite(x.favoriteId)}
+                  >
+                    Ukloni
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
