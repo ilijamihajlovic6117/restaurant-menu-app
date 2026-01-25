@@ -12,6 +12,12 @@ import EditItem from "./pages/EditItem";
 import AdminPanel from "./pages/AdminPanel";
 import ItemDetails from "./pages/ItemDetails";
 
+<<<<<<< HEAD
+=======
+import HomePage from "./pages/HomePage";
+import FavoritesPage from "./pages/FavoritesPage";
+import EurToRsdPage from "./pages/EurToRsdPage";
+>>>>>>> 8ac24ef (Dodato: Home stranica)
 
 function Nav() {
   const { user, logout } = useAuth();
@@ -19,7 +25,9 @@ function Nav() {
 
   return (
     <div style={{ padding: 10, borderBottom: "1px solid #ddd" }}>
+      <Link to="/home" style={{ marginRight: 10 }}>Home</Link>
       <Link to="/" style={{ marginRight: 10 }}>Jelovnik</Link>
+      
 
       {!user ? (
         <>
@@ -28,6 +36,13 @@ function Nav() {
         </>
       ) : (
         <>
+<<<<<<< HEAD
+=======
+          
+          <Link to="/favorites" style={{ marginRight: 10 }}>Omiljena</Link>
+          <Link to="/kurs" style={{ marginRight: 10 }}>EUR→RSD</Link>
+
+>>>>>>> 8ac24ef (Dodato: Home stranica)
           {isAdmin && (
             <Link to="/admin" style={{ marginRight: 10 }}>Admin</Link>
           )}
@@ -71,6 +86,37 @@ export default function App() {
             }
           />
 
+<<<<<<< HEAD
+=======
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
+            }
+          />
+          
+          <Route
+            path="/favorites"
+            element={
+              <ProtectedRoute>
+                <FavoritesPage />
+              </ProtectedRoute>
+            }
+          />
+
+          
+          <Route
+            path="/kurs"
+            element={
+              <ProtectedRoute>
+                <EurToRsdPage />
+              </ProtectedRoute>
+            }
+          />
+
+>>>>>>> 8ac24ef (Dodato: Home stranica)
           <Route
             path="/dodaj"
             element={

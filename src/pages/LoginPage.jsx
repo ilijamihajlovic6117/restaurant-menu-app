@@ -29,7 +29,7 @@ export default function LoginPage() {
     const u = res.data[0];
     login({ id: u.id, name: u.name, email: u.email, role: u.role });
 
-    navigate("/", { replace: true });
+    navigate("/home", { replace: true });
   };
 
   return (
