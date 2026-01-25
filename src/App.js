@@ -12,12 +12,9 @@ import EditItem from "./pages/EditItem";
 import AdminPanel from "./pages/AdminPanel";
 import ItemDetails from "./pages/ItemDetails";
 
-<<<<<<< HEAD
-=======
 import HomePage from "./pages/HomePage";
 import FavoritesPage from "./pages/FavoritesPage";
 import EurToRsdPage from "./pages/EurToRsdPage";
->>>>>>> 8ac24ef (Dodato: Home stranica)
 
 function Nav() {
   const { user, logout } = useAuth();
@@ -25,26 +22,37 @@ function Nav() {
 
   return (
     <div style={{ padding: 10, borderBottom: "1px solid #ddd" }}>
-      <Link to="/home" style={{ marginRight: 10 }}>Home</Link>
-      <Link to="/" style={{ marginRight: 10 }}>Jelovnik</Link>
-      
+      <Link to="/home" style={{ marginRight: 10 }}>
+        Home
+      </Link>
+
+      {user && (
+        <>
+          <Link to="/" style={{ marginRight: 10 }}>
+            Jelovnik
+          </Link>
+          <Link to="/favorites" style={{ marginRight: 10 }}>
+            Omiljena
+          </Link>
+          <Link to="/kurs" style={{ marginRight: 10 }}>
+            Kurs EUR→RSD
+          </Link>
+        </>
+      )}
 
       {!user ? (
         <>
-          <Link to="/login" style={{ marginRight: 10 }}>Login</Link>
+          <Link to="/login" style={{ marginRight: 10 }}>
+            Login
+          </Link>
           <Link to="/register">Register</Link>
         </>
       ) : (
         <>
-<<<<<<< HEAD
-=======
-          
-          <Link to="/favorites" style={{ marginRight: 10 }}>Omiljena</Link>
-          <Link to="/kurs" style={{ marginRight: 10 }}>EUR→RSD</Link>
-
->>>>>>> 8ac24ef (Dodato: Home stranica)
           {isAdmin && (
-            <Link to="/admin" style={{ marginRight: 10 }}>Admin</Link>
+            <Link to="/admin" style={{ marginRight: 10 }}>
+              Admin
+            </Link>
           )}
 
           <span style={{ marginRight: 10 }}>
@@ -65,6 +73,14 @@ export default function App() {
         <Nav />
 
         <Routes>
+          
+          <Route path="/home" element={<HomePage />} />
+
+          
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+
+         
           <Route
             path="/"
             element={
@@ -73,9 +89,6 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
 
           <Route
             path="/item/:id"
@@ -86,17 +99,6 @@ export default function App() {
             }
           />
 
-<<<<<<< HEAD
-=======
-          <Route
-            path="/home"
-            element={
-              <ProtectedRoute>
-                <HomePage />
-              </ProtectedRoute>
-            }
-          />
-          
           <Route
             path="/favorites"
             element={
@@ -106,7 +108,6 @@ export default function App() {
             }
           />
 
-          
           <Route
             path="/kurs"
             element={
@@ -116,7 +117,7 @@ export default function App() {
             }
           />
 
->>>>>>> 8ac24ef (Dodato: Home stranica)
+          {/* ADMIN ONLY */}
           <Route
             path="/dodaj"
             element={
@@ -144,9 +145,9 @@ export default function App() {
             }
           />
 
-          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* FALLBACK */}
+          <Route path="*" element={<Navigate to="/home" replace />} />
         </Routes>
-
       </BrowserRouter>
     </AuthProvider>
   );
